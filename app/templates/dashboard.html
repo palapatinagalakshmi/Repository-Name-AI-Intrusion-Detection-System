@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AI Intrusion Detection System</title>
+    <style>
+        table{
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#00ff88;
+    color:black;
+}
+
+td{
+    background:#334155;
+}
+        body{
+            background:#0f172a;
+            color:white;
+            font-family:Arial,sans-serif;
+            margin:0;
+            padding:20px;
+        }
+
+        h1{
+            text-align:center;
+            color:#00ff88;
+        }
+
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+            margin-top:30px;
+        }
+
+        .card{
+            background:#1e293b;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(0,255,136,0.3);
+            text-align:center;
+        }
+
+        .status{
+            color:#00ff88;
+            font-weight:bold;
+        }
+
+        .danger{
+            color:red;
+            font-weight:bold;
+        }
+
+        .threat-box{
+            background:#1e293b;
+            margin-top:30px;
+            padding:20px;
+            border-radius:15px;
+        }
+
+        ul{
+            list-style:none;
+            padding:0;
+        }
+
+        li{
+            padding:10px;
+            background:#334155;
+            margin:10px 0;
+            border-radius:10px;
+        }
+
+        #clock{
+            text-align:right;
+            color:#00ff88;
+            font-size:18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="clock"></div>
+
+<h1>🛡 AI-Powered Network Intrusion Detection & Threat Monitoring System</h1>
+<div class="dashboard">
+    <div class="card">
+    <h2>Risk Level</h2>
+    <h1 style="color:orange;">MEDIUM</h1>
+</div>
+    <div class="card">
+    <h2>Total Packets</h2>
+    <h1>1250</h1>
+</div>
+
+<div class="card">
+    <h2>Threats Detected</h2>
+    <h1>12</h1>
+</div>
+
+<div class="card">
+    <h2>Blocked Attacks</h2>
+    <h1>8</h1>
+</div>
+
+    <div class="card">
+        <h2>System Status</h2>
+        <p class="status">ACTIVE</p>
+    </div>
+
+    <div class="card">
+        <h2>Detection Engine</h2>
+        <p class="status">RUNNING</p>
+    </div>
+
+    <div class="card">
+        <h2>Network Monitor</h2>
+        <p class="status">ENABLED</p>
+    </div>
+
+</div>
+
+<div class="threat-box">
+    <h2>Detected Threats</h2>
+    <div class="threat-box">
+    <h2>Recent Threat Activity</h2>
+    <div class="threat-box">
+    <h2>Attack Trend Analysis</h2>
+
+    <canvas id="attackChart"></canvas>
+</div>
+
+    <table border="1" width="100%">
+        <tr>
+            <th>IP Address</th>
+            <th>Threat Type</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+            <td>192.168.1.5</td>
+            <td>Port Scan</td>
+            <td>Blocked</td>
+        </tr>
+
+        <tr>
+            <td>10.0.0.15</td>
+            <td>Brute Force</td>
+            <td>Detected</td>
+        </tr>
+    </table>
+</div>
+
+    {% if threats %}
+        <ul>
+        {% for threat in threats %}
+            <li class="danger">{{ threat }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="status">✅ No Threats Detected</p>
+    {% endif %}
+</div>
+
+<script>
+function updateClock(){
+    let now = new Date();
+    document.getElementById("clock").innerHTML =
+    now.toLocaleString();
+}
+
+setInterval(updateClock,1000);
+updateClock();
+</script>
+<script>
+const ctx = document.getElementById('attackChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [
+            'Mon',
+            'Tue',
+            'Wed',
+            'Thu',
+            'Fri',
+            'Sat',
+            'Sun'
+        ],
+        datasets: [{
+            label: 'Detected Threats',
+            data: [3, 5, 2, 8, 6, 4, 7],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
+</body>
+</html>
